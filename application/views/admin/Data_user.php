@@ -1,17 +1,17 @@
-<div class="content-wrapper">
+<div class="content-wrapper mt-4">
     <div class="row">
         <div class="col-md-12 grid-margin">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Data Produk</h4>
+                            <h4 class="card-title text-primary">Data User</h4>
                             <?php if ($this->session->flashdata('sukses')) : ?>
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                                             Data Produk <strong>Berhasil </strong><?= $this->session->flashdata('sukses'); ?>
-                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
                                         </div>
                                     </div>
                                 </div>
@@ -22,7 +22,7 @@
                                     <div class="col-md-12">
                                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                             <?= $this->session->flashdata('validate'); ?>
-                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
                                         </div>
                                     </div>
                                 </div>
@@ -31,14 +31,14 @@
                             
                             <!-- Button trigger modal -->
                             <div class="button_tambah" style="float: right;">
-                                <button type="button" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#modaluser">
+                                <button type="button" class="btn btn-primary mb-4" data-toggle="modal" data-target="#modaluser">
                                     Tambah
                                 </button>
                             </div>
                             <?php echo $this->session->flashdata('pesan') ?>
 
                             <div class="table-responsive">
-                                <table class="table table-hover">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
                                         <th>No</th>
@@ -50,7 +50,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php $no = 1;
+                                        <?php $no = $this->uri->segment(4) + 1;
                                         foreach ($user as $cs) :  ?>
                                             <tr>
                                               
@@ -70,12 +70,12 @@
                                                 </td>
                                                 <td>
                                                     <div class="button_edits">
-                                                        <a  type="button" style="width: 60px; font-size: 12px;" class="btn btn-primary btn-xs" data-bs-toggle="modal" data-bs-target="#editmodal<?php echo $cs->id_user ?>"  >
+                                                        <a  type="button" style="width: 80px; font-size: 12px;" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editmodal<?php echo $cs->id_user ?>"  >
                                                             EDIT
                                                         </a>
                                                     </div>
                                                     <div class="button_delete">
-                                                        <a type="button" style="width: 60px; font-size: 12px;" class="btn btn-danger btn-xs mt-1" href="<?= base_url('admin/data_user/delete_user/').$cs->id_user ?>" onclick="return confirm('Apakah Anda Yakin Ingin Menghapus Data ?')">
+                                                        <a type="button" style="width: 80px; font-size: 12px;" class="btn btn-danger btn-xs mt-1" href="<?= base_url('admin/data_user/delete_user/').$cs->id_user ?>" onclick="return confirm('Apakah Anda Yakin Ingin Menghapus Data ?')">
                                                             DELETE
                                                         </a>
                                                     </div>
@@ -84,6 +84,11 @@
                                         <?php endforeach; ?>
                                     </tbody>
                                 </table>
+                                <!-- <div class="row mt-4">
+                                    <div class="col-md-12">
+                                        <?php echo $links ?>
+                                    </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -98,9 +103,11 @@
 <div class="modal fade" id="modaluser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Data User</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-header">
+                <h5 class="modal-title fs-5" id="exampleModalLabel">Tambah Data Produk</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
             </div>
             <div class="modal-body">
                 <?php if ($this->session->flashdata('validate')) : ?>
@@ -108,7 +115,7 @@
                         <div class="col-md-12">
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 <?= $this->session->flashdata('validate'); ?>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
                             </div>
                         </div>
                     </div>
@@ -166,7 +173,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Data User</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <?php if ($this->session->flashdata('validate')) : ?>
@@ -174,7 +181,7 @@
                         <div class="col-md-12">
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 <?= $this->session->flashdata('validate'); ?>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
                             </div>
                         </div>
                     </div>

@@ -1,0 +1,83 @@
+ // ngasi aksi jika is veriv 1 atau approved maka otomatis disabled
+                                                    if($tr->is_verif == null && $tr->bukti_pembayaran == null){?>
+                                                    <div class="button_edits">
+                                                        <a  type="button" style="width: 80px; font-size: 12px;" class="btn btn-success btn-xs text-white" href ="<?php echo base_url('admin/transaksi/approved/' . $tr->id_sewa ) ?>"  >
+                                                           Approved
+                                                        </a>
+                                                    </div>
+                                                    <div class="button_delete">
+                                                    <a type="button" style="width: 80px; font-size: 12px;" class="btn btn-danger btn-xs text-white mt-1" onclick="return confirm('Apakah Anda Yakin Membatalkan Transaksi ini ?')" href ="<?php echo base_url('admin/transaksi/deny/' . $tr->id_sewa ) ?>">
+                                                           Deny
+                                                        </a>
+                                                    <!-- </div> -->
+                                                    <!-- <div class="button_detail"> -->
+                                                       
+                                                    
+                                                    <a type="button" style="width: 80px; font-size: 12px;" class="btn btn-primary btn-xs text-white mt-1"  href= "<?php echo base_url('admin/transaksi/detail/' . $tr->id_sewa ) ?>">
+                                                          
+                                                    Detail
+                                                        </a>
+
+                                                    </div>
+                                                        
+
+                                                    <!-- ini code untuk mengehtahui apakah dia deny atau approved tugus saat menunggu pembayaran :) -->
+                                                    <?php }elseif ($tr->is_verif == null && $tr->bukti_pembayaran == null) { ?>
+                                                    <div class="button_edits">
+                                                        <a  type="button" style="width: 80px; font-size: 12px;" class="btn btn-secondary text-white btn-xs" disabled >
+                                                           Approved
+                                                        </a>
+                                                    </div>
+                                                    <div class="button_delete">
+                                                    <a type="button" style="width: 80px; font-size: 12px;" class="btn btn-secondary text-white btn-xs mt-1" disabled>
+                                                           Deny
+                                                        </a>
+                                                    <!-- </div> -->
+                                                    <!-- <div class="button_detail"> -->
+                                                       
+                                                    <a type="button" style="width: 80px; font-size: 12px;" class="btn btn-primary text-white btn-xs mt-1"  href= "<?php echo base_url('admin/transaksi/detail/' . $tr->id_sewa ) ?>">
+                                                           Detail
+                                                        </a>
+                                                    </div>
+
+                                                    <!-- YANG DIATAS PROGRAM DISABLED KALO MENUNGGU PEMBAYARAN BUTTON ACTIONNYA DISABLED SECONDARY KECUALI DETAILNYA -->
+                                                    
+                                                    <!-- program dibawah untuk mengecek detail pada konfir pembayaran -->
+                                                    <?php }elseif (($tr->bukti_pembayaran != null ||$tr->bukti_pembayaran == null ) && $tr->is_verif == "1" && $tr->is_valid == null ){?>
+
+                                                        <div class="button_edits">
+                                                        <a  type="button" style="width: 80px; font-size: 12px;" class="btn btn-success btn-xs" href ="<?php echo base_url('admin/transaksi/approved_pembayaran/' . $tr->id_transaksi ) ?>"   >
+                                                           Approved
+                                                        </a>
+                                                    </div>
+                                                    <div class="button_delete">
+                                                    <a type="button" style="width: 80px; font-size: 12px;" class="btn btn-danger btn-xs mt-1"  onclick="return confirm('Apakah Anda Yakin Membatalkan Transaksi ini ?')" href ="<?php echo base_url('admin/transaksi/deny_pembayaran/' . $tr->id_transaksi ) ?>">
+                                                           Deny
+                                                        </a>
+                                                    <!-- </div> -->
+                                                    <!-- <div class="button_detail"> -->
+                                                       
+                                                    <a type="button" style="width: 80px; font-size: 12px;" class="btn btn-primary btn-xs mt-1"  href= "<?php echo base_url('admin/transaksi/detail_pembayaran/' . $tr->id_transaksi ) ?>">
+                                                           Detail
+                                                        </a>
+                                                    </div>
+
+                                                        <?php  }elseif ($tr->is_valid != null && $tr->is_verif == "1" ){?>
+                                                            <div class="button_edits">
+                                                        <a  type="button" style="width: 80px; font-size: 12px;" class="btn btn-secondary btn-xs" disabled >
+                                                           Approved
+                                                        </a>
+                                                    </div>
+                                                    <div class="button_delete">
+                                                    <a type="button" style="width: 80px; font-size: 12px;" class="btn btn-secondary btn-xs mt-1" disabled>
+                                                           Deny
+                                                        </a>
+                                                    <!-- </div> -->
+                                                    <!-- <div class="button_detail"> -->
+                                                       
+                                                    <a type="button" style="width: 80px; font-size: 12px;" class="btn btn-primary btn-xs mt-1"  href= "<?php echo base_url('admin/transaksi/detail_pembayaran/' . $tr->id_transaksi ) ?>">
+                                                           Detail
+                                                        </a>
+                                                    </div>
+
+                                                        <?php  } 
