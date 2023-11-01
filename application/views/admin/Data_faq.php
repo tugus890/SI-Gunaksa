@@ -5,12 +5,12 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Data Produk</h4>
+                            <h4 class="card-title">Data FAQ</h4>
                             <?php if ($this->session->flashdata('sukses')) : ?>
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                            Data Produk <strong>Berhasil </strong><?= $this->session->flashdata('sukses'); ?>
+                                            Data FAQ <strong>Berhasil </strong><?= $this->session->flashdata('sukses'); ?>
                                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                         </div>
                                     </div>
@@ -164,6 +164,3 @@
     </div>
 </div>
 <?php endforeach; ?>
-
-</div>
-</div>

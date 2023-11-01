@@ -70,7 +70,7 @@
             </div>
             
 
-<table class="table table-striped table-bordered">
+<table class="table table-striped table-bordered mt-4">
   <tr>
     <th>No</th>
     <th>Nama Produk</th>
