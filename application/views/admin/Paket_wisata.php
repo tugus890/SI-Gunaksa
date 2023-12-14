@@ -47,8 +47,7 @@
         		                        <th>Harga Paket Wisata</th>
         		                        <th>Nama Pemilik Paket Wisata</th>
         		                        <th>Alamat Pemilik</th>
-        		                        <th>No TLP</th>
-        		                        <th>No WA</th>
+                                        <th>No Data Kontak</th>
         		                        <th>Keterangan</th>
         		                        <th>Diskon</th>
         		                        <th>Kesediaan</th>
@@ -69,9 +68,14 @@
                                             ?> </td>
                                             <td><?php echo $cs->harga ?></td>
                                             <td><?php echo $cs->nama_pemilik ?></td>
+                                           
                                             <td><?php echo $cs->alamat ?></td>
-                                            <td><?php echo $cs->no_tlp ?></td>
-                                            <td><?php echo $cs->no_wa ?></td>
+                                            <!-- <td><?php foreach ($kontak as $key ) {
+                                                    echo $key->no_tlp;
+                                                } ?></td> -->
+
+                                            <td><?php echo $cs->no_tlp ?> ...</td>
+
                                             <td><?php echo $cs->keterangan ?></td>
                                             <td><?php echo $cs->diskon ?></td>
                                             <td><?php echo $cs->kesediaan ?></td>
@@ -160,42 +164,32 @@
                     </div>
                 </div>
 
-                <div class="mb-3">
-                    <label>Alamat Pemilik</label>
-                    <textarea id="komentar" name="alamat" rows="4" cols="50"></textarea><br><br>
-                     <?php echo form_error('alamat','<span class="text-small text-danger">','</span>') ?>
-                </div>
-                    
-                <div class="row">
-                    <div class="col-6">
-                        <div class="mb-3">
-                            <label>No TLP</label>
-                            <input type="no_tlp" name="no_tlp" class="form-control" required>
-                            <?php echo form_error('no_tlp','<span class="text-small text-danger">','</span>') ?>
-                        </div>
-                     </div>
-                    <div class="col-6">
-                        <div class="mb-3">
-                            <label>No WA</label>
-                            <input type="no_wa" name="no_wa" class="form-control" required>
-                            <?php echo form_error('no_wa','<span class="text-small text-danger">','</span>') ?>
-                        </div>
-                    </div>
-                </div>
-
+            
+                
                     <div class="mb-3">
                     <label>Keterangan</label>
                     <input type="keterangan" name="keterangan" class="form-control" required>
                     <?php echo form_error('keterangan','<span class="text-small text-danger">','</span>') ?>
 
-                    </div>
-                    <div class="row">
-                    <div class="col-6">
-                        <div class="mb-3">
+                    <div class="mb-3">
                             <label>Diskon</label>
                             <input type="diskon" name="diskon" class="form-control" >
                             <?php echo form_error('diskon','<span class="text-small text-danger">','</span>') ?>
                         </div>
+
+                    </div>
+                    <div class="row">
+                    <div class="col-6">
+                    <div class="mb-3">
+                    <label>Pilih Informasi Kontak</label><br>
+                    <select name="kontak" id="kontak">
+                    <option value="">Pilih</option>
+                        <?php foreach ($kontak as $cs): ?>
+                            <option value="<?= $cs->id_kontak  ?>"> <?= $cs->no_tlp ?> ...</option>
+                        <?php endforeach; ?>
+                    </select>
+                    <?php echo form_error('kontak', '<span class="text-small text-danger">', '</span>'); ?>
+                </div>
                      </div>
                     <div class="col-6">
                         <div class="mb-3">
@@ -264,7 +258,7 @@
                     <div class="col-6">
                         <div class="mb-3">
                             <label>Harga Paket Wisata</label>
-                            <input type="text" name="harga" class="form-control" value="<?= $cs->harga ?>" >
+                            <input type="text" name="harga" class="form-control" value="<?= $cs->harga ?>">
                             <?php echo form_error('harga','<span class="text-small text-danger">','</span>') ?>
                         </div>
                      </div>
@@ -277,55 +271,45 @@
                     </div>
                 </div>
 
-                <div class="mb-3">
-                    <label>Alamat Pemilik</label>
-                    <textarea id="komentar" name="alamat" rows="4" cols="50" ><?= $cs->alamat ?></textarea><br><br>
-                     <?php echo form_error('alamat','<span class="text-small text-danger">','</span>') ?>
-                </div>
-                    
-                <div class="row">
-                    <div class="col-6">
-                        <div class="mb-3">
-                            <label>No TLP</label>
-                            <input type="no_tlp" name="no_tlp" class="form-control" value="<?= $cs->no_tlp ?>">
-                            <?php echo form_error('no_tlp','<span class="text-small text-danger">','</span>') ?>
-                        </div>
-                     </div>
-                    <div class="col-6">
-                        <div class="mb-3">
-                            <label>No WA</label>
-                            <input type="no_wa" name="no_wa" class="form-control" value="<?= $cs->no_wa ?>">
-                            <?php echo form_error('no_wa','<span class="text-small text-danger">','</span>') ?>
-                        </div>
-                    </div>
-                </div>
-
+            
+                
                     <div class="mb-3">
                     <label>Keterangan</label>
-                    <input type="keterangan" name="keterangan" class="form-control" value="<?= $cs->keterangan ?>" >
+                    <input type="keterangan" name="keterangan" class="form-control" value="<?= $cs->keterangan ?>">
                     <?php echo form_error('keterangan','<span class="text-small text-danger">','</span>') ?>
 
-                    </div>
-                    <div class="row">
-                    <div class="col-6">
-                        <div class="mb-3">
+                    <div class="mb-3">
                             <label>Diskon</label>
                             <input type="diskon" name="diskon" class="form-control" value="<?= $cs->diskon ?>">
                             <?php echo form_error('diskon','<span class="text-small text-danger">','</span>') ?>
                         </div>
-                     </div>
+
+                    </div>
+                    <div class="row">
                     <div class="col-6">
+                    <div class="mb-3">
+                    <label>Pilih Informasi Kontak</label><br>
+                    <select name="kontak" id="kontak">
+                    <option value="">Pilih</option>
+                        <?php foreach ($kontak as $cs): ?>
+                            <option value="<?= $cs->id_kontak  ?>"> <?= $cs->no_tlp ?> ...</option>
+                        <?php endforeach; ?>
+                    </select>
+                    <?php echo form_error('kontak', '<span class="text-small text-danger">', '</span>'); ?>
+                </div>
+                     </div>
+
+                     <div class="col-6">
                         <div class="mb-3">
                             <label>Pilih Kesediaan</label>
-                            <select name="kesediaan" id="kesediaan" >
-                            <option value="Tersedia" <?php if ($cs->kesediaan == 'Tersedia') echo 'selected'; ?>>Tersedia</option>
-                            <option value="Tidak Tersedia" <?php if ($cs->kesediaan == 'Tidak Tersedia') echo 'selected'; ?>>Tidak Tersedia</option>
+                            <select name="kesediaan" id="kesediaan">
+                            <option value="Tersedia">Tersedia</option>
+                            <option value="Tidak Tersedia">Tidak Tersedia</option>
                             </select>
                             </option>
                             <?php echo form_error('kesediaan','<span class="text-small text-danger">','</span>') ?>
                         </div>
                     </div>
-                </div>
                 
                     <div class="modal-footer">
                         <button type="submit" name="edit" class="btn btn-primary">Simpan</button>

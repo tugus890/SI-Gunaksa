@@ -2,66 +2,54 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
   <title><?= $judul ?></title>
+  <link rel="icon" href="<?= base_url('assets/images/logo.png') ?>" type="image/x-icon" >
 
-  <meta name="description" content="" />
+  <!-- Custom fonts for this template-->
+  <link href="<?= base_url('assets/t_a/') ?>vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
+        
+    <!-- Custom styles for this template-->
+    <link href="<?= base_url('assets/t_a/') ?>css/sb-admin-2.css" rel="stylesheet">
+    <link href="<?= base_url('assets/t_a/') ?>css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="<?= base_url('assets/t_a/') ?>vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+ <!-- Bootstrap core JavaScript-->
+    <script src="<?= base_url('assets/t_a/') ?>vendor/jquery/jquery.min.js"></script>
+    <script src="<?= base_url('assets/t_a/') ?>vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
+    <!-- Core plugin JavaScript-->
+    <script src="<?= base_url('assets/t_a/') ?>vendor/jquery-easing/jquery.easing.min.js"></script>
 
-  <!-- Icons. Uncomment required icon fonts -->
-  <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
+    <!-- Custom scripts for all pages-->
+    <script src="<?= base_url('assets/t_a/') ?>js/sb-admin-2.js"></script>
+    <script src="<?= base_url('assets/t_a/') ?>js/sb-admin-2.min.js"></script>
 
-  <!-- Core CSS -->
-  <link rel="stylesheet" href="<?= base_url('assets/') ?>t_1/vendor/css/core.css" class="template-customizer-core-css" />
-  <link rel="stylesheet" href="<?= base_url('assets/') ?>t_1/vendor/css/theme-default.css" class="template-customizer-theme-css" />
-  <link rel="stylesheet" href="<?= base_url('assets/') ?>t_1/css/demo.css" />
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap5.min.css" />
-  <!-- Vendors CSS -->
-  <link rel=" stylesheet" href="<?= base_url('assets/') ?>t_1/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <!-- Page level plugins -->
+    <script src="<?= base_url('assets/t_a/') ?>vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="<?= base_url('assets/t_a/') ?>vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
-  <link rel="stylesheet" href="<?= base_url('assets/') ?>t_1/vendor/libs/apex-charts/apex-charts.css" />
-
-  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.css" rel="stylesheet" />
-
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="<?= base_url('assets/') ?>font/css/all.css">
-  <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-
-
-  <!-- Page CSS -->
-
-  <!-- Helpers -->
-  <script src="<?= base_url('assets/') ?>t_1/vendor/js/helpers.js"></script>
-
-  <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-  <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-  <script src="<?= base_url('assets/') ?>t_1/js/config.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-  <!-- <link href="<?= base_url('assets/') ?>select2/dist/css/select2.min.css" rel="stylesheet" /> -->
-  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
+    <!-- Page level custom scripts -->
+    <script src="<?= base_url('assets/t_a/') ?>js/demo/datatables-demo.js"></script>
+    
 
 </head>
 
 <body>
-  <!-- Layout wrapper -->
-  <div class="layout-wrapper layout-content-navbar">
-    <div class="layout-container">
-      <?php include('sidebar.php')  ?>
-
-      <!-- Layout container -->
+  <!-- Layout container -->
       <div class="layout-page">
         <?php include('topbar.php') ?>
 
         <!-- Content wrapper -->
         <div class="content-wrapper">
           <!-- Content -->
+          <?php include('sidebar.php') ?>

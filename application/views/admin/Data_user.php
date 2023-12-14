@@ -10,7 +10,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                            Data Produk <strong>Berhasil </strong><?= $this->session->flashdata('sukses'); ?>
+                                            Data User <strong>Berhasil </strong><?= $this->session->flashdata('sukses'); ?>
                                             <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
                                         </div>
                                     </div>
@@ -61,13 +61,18 @@
                                             <td>
                                                 <?php if ($cs->role==1){
                                                     echo 'Admin';
-                                                    }elseif ($cs->role==2){
-                                                    echo 'Customer';
+                                                   
                                                     }elseif ($cs->role==3){
                                                     echo 'Pimpinan';
                                 
                                                 } ?>
                                                 </td>
+
+                                                <td><?php if($cs->foto != null) {
+                                                        echo "<img src='" . base_url('assets/upload/') . $cs->foto . "'width='200'''>";
+                                            }else echo "<img src='" . base_url('assets/images/') . 'logo.png' . "'width=200''>";
+                                                
+                                            ?> </td>
                                                 <td>
                                                     <div class="button_edits">
                                                         <a  type="button" style="width: 80px; font-size: 12px;" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editmodal<?php echo $cs->id_user ?>"  >
@@ -104,7 +109,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
         <div class="modal-header">
-                <h5 class="modal-title fs-5" id="exampleModalLabel">Tambah Data Produk</h5>
+                <h5 class="modal-title fs-5" id="exampleModalLabel">Tambah Data User</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -136,12 +141,11 @@
                     </div>
                     
                     <div class="mb-3">
-                            <label>Level Customer</label>
+                            <label>Level User</label>
                             <select class="form-control" name="role" required>
                                 <option value="">-- Pilih Level --</option>
                                 <option value="1">Admin</option>
-                                <option value="2">Customer</option>
-                                <option value="3">Pimpinan</option>
+                                <option value="2">Pimpinan</option>
                             </select>
                             <?php echo form_error('role','<span class="text-small text-danger">','</span>') ?>
                         
@@ -152,6 +156,13 @@
                     <input type="password" name="password" class="form-control" required>
                     <?php echo form_error('password','<span class="text-small text-danger">','</span>') ?>
 
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Foto *maks 2MB(jpg,jpeg,png)</label>
+                        <input type="file" name="foto" class="form-control" required>
+                        <?php echo form_error('foto','<span class="text-small text-danger">','</span>') ?>
+                        
                     </div>
                   
                         <button type="submit" name="tambah" class="btn btn-primary">Simpan</button>
@@ -207,8 +218,7 @@
                                 <label>Level User</label>
                                 <select class="form-control" name="role">
                                     <option value="1" <?php if($cs->role == '1') echo ' selected="selected"'; ?>>Admin</option>
-                                    <option value="2" <?php if($cs->role == '2') echo ' selected="selected"'; ?>>Customer</option>
-                                    <option value="3" <?php if($cs->role == '3') echo ' selected="selected"'; ?>>Pimpinan</option>
+                                    <option value="2" <?php if($cs->role == '2') echo ' selected="selected"'; ?>>Pimpinan</option>
                                 </select>
 
                             </div>
@@ -216,9 +226,15 @@
                     </div>
                     <div class="mb-3">
                         <label>Password</label>
-                        <input type="password" name="password" class="form-control">
+                        <input type="password" name="password" class="form-control" value="<?php echo $cs->email ?>" readonly>
                         <?php echo form_error('password','<span class="text-small text-danger">','</span>') ?>
 
+                    </div>
+                    <div class="mb-3">
+                        <label>Foto *maks 2MB</label>
+                        <input type="file" name="foto" class="form-control" value="<?= $cs->foto ?>">
+                        <?php echo form_error('foto','<span class="text-small text-danger">','</span>') ?>
+                        
                     </div>
                    
                     <div class="modal-footer">

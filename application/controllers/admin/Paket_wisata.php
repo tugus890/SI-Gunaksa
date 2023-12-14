@@ -6,7 +6,8 @@
 		public function index(){
 			$this->sispar_model->admin_login();
 			//mengeluarkan semua data tugus
-			$data['paket'] = $this->sispar_model->get_data('tb_paket_wisata')->result();
+			$data['paket'] = $this->db->query("SELECT *,alamat,no_tlp FROM tb_paket_wisata LEFT JOIN tb_kontak ON tb_paket_wisata.id_kontak = tb_kontak.id_kontak;")->result();
+			$data['kontak'] = $this->db->query("SELECT * FROM tb_kontak")->result();
 
 			//pagination tugus :)
 			// $config['base_url'] = base_url('admin/data_user/index'); // Perbaiki base_url
@@ -43,15 +44,13 @@
 				$nama_paket = $this->input->post('nama_paket');
 				$harga = $this->input->post('harga');
 				$nama_pemilik = $this->input->post('nama_pemilik');
-				$alamat = $this->input->post('alamat');
-				$no_tlp = $this->input->post('no_tlp');
-				$no_wa = $this->input->post('no_wa');
+				$id_kontak = $this->input->post('kontak');
 				$diskon = $this->input->post('diskon');
 				$kesediaan = $this->input->post('kesediaan');
 				$keterangan = $this->input->post('keterangan');
 				$foto = $_FILES['foto']['name'];
+				$id_user = $this->session->userdata('id_user');
 
-		
 				// File Upload Configuration
 				$config['upload_path'] = './assets/upload';
 				$config['allowed_types'] = 'jpg|jpeg|png|JPEG|PNG';
@@ -69,13 +68,12 @@
 						'foto' => $foto,
 						'harga' => $harga,
 						'nama_pemilik' => $nama_pemilik,
-						'alamat' => $alamat,
-						'no_tlp' => $no_tlp,
 						'keterangan' => $keterangan,
 						'diskon' => $diskon,
 						'kesediaan' => $kesediaan,
-						'no_wa' => $no_wa,
-
+						'id_kontak' => $id_kontak,
+						'id_user' => $id_user
+						
 
 					);
 		
@@ -125,9 +123,22 @@
 		$nama_paket = $this->input->post('nama_paket');
 		$harga = $this->input->post('harga');
 		$nama_pemilik = $this->input->post('nama_pemilik');
-		$alamat = $this->input->post('alamat');
-		$no_tlp = $this->input->post('no_tlp');
-		$no_wa = $this->input->post('no_wa');
+		$id_kontak = $this->input->post('kontak');
+
+		if ($id_kontak == null) {
+			// If $id_kontak is null, fetch it from the database
+			$result = $this->db->query("SELECT id_kontak FROM tb_paket_wisata WHERE id_paket_wisata = '$id_paket_wisata'")->row();
+			
+			// Check if the result is not empty
+			if ($result) {
+				$id_kontak = $result->id_kontak;
+			
+		}
+	}
+
+// Now $id_kontak contains the correct value either from the post or the database
+
+
 		$diskon = $this->input->post('diskon');
 		$kesediaan = $this->input->post('kesediaan');
 		$keterangan = $this->input->post('keterangan');
@@ -157,12 +168,11 @@
 			'foto' => $foto,
 			'harga' => $harga,
 			'nama_pemilik' => $nama_pemilik,
-			'alamat' => $alamat,
-			'no_tlp' => $no_tlp,
+			
 			'keterangan' => $keterangan,
 			'diskon' => $diskon,
 			'kesediaan' => $kesediaan,
-			'no_wa' => $no_wa,
+			'id_kontak' => $id_kontak
             
         );
 
@@ -215,9 +225,7 @@
 			$this->form_validation->set_rules('harga',"harga",'required');
 			$this->form_validation->set_rules('nama_pemilik',"nama pemilik",'required');
 			$this->form_validation->set_rules('keterangan',"keterangan",'required');
-			$this->form_validation->set_rules('alamat',"alamat",'required');
-			$this->form_validation->set_rules('no_tlp',"no tlp",'required');
-			$this->form_validation->set_rules('no_wa',"no wa",'required');
+			
 			$this->form_validation->set_rules('kesediaan',"Kesediaan",'required');
 		
 			

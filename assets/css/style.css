@@ -294,6 +294,53 @@ body {
     color: #fff;
 }
 
+
+/* dari sini program bintang */
+
+.rate {
+    float: left;
+    height: 50px;
+    padding: 0 10px;
+}
+
+.rate>input {
+    display: none;
+}
+
+.rate>label {
+    float: right;
+    width: 1em;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: default;
+    font-size: 30px;
+    color: #ccc;
+}
+
+.rate>label:before {
+    content: '★ ';
+}
+
+.rate>input:checked~label {
+    color: #ffc700;
+}
+
+.rate>label:hover,
+.rate>label:hover~label {
+    color: #deb217;
+}
+
+.rate>input:checked+label:hover,
+.rate>input:checked+label:hover~label,
+.rate>input:checked~label:hover,
+.rate>input:checked~label:hover~label,
+.rate>label:hover~input:checked~label {
+    color: #c59b08;
+}
+
+
+/* sampe sini program bintang */
+
 ::selection {
     background: #000;
     color: #fff;

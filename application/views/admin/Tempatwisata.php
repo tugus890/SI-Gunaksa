@@ -5,7 +5,7 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title text-primary">Data Tempat Wisata</h4>
+                            <h4 class="card-title text-primary">Data Objek Wisata</h4>
                             <?php if ($this->session->flashdata('sukses')) : ?>
                                 <div class="row">
                                     <div class="col-md-12">
@@ -46,6 +46,7 @@
         		                        <th>Foto Wisata</th>
         		                        <th>Link Maps</th>
         		                        <th>Maps</th>
+                                        <th>Kategori</th>
         		                        <th>Keterangan</th>
         		                        <th>Aksi</th>
                                         </tr>
@@ -64,6 +65,7 @@
                                             ?> </td>
                                             <td><?php echo $cs->link_maps ?></td>
                                             <td><?php echo $cs->maps ?></td>
+                                            <td><?php echo $cs->isi ?></td>
                                             <td><?php echo $cs->keterangan ?></td>
                                             
                                                 <td>
@@ -73,7 +75,7 @@
                                                         </a>
                                                     </div>
                                                     <div class="button_delete">
-                                                        <a type="button" style="width: 80px; font-size: 12px;" class="btn btn-danger btn-xs mt-1" href="<?= base_url('admin/tempatwisata/delete_wisata').$cs->id_objek_wisata  ?>" onclick="return confirm('Apakah Anda Yakin Ingin Menghapus Data ?')">
+                                                        <a type="button" style="width: 80px; font-size: 12px;" class="btn btn-danger btn-xs mt-1" href="<?= base_url('admin/tempatwisata/delete_wisata/').$cs->id_objek_wisata  ?>" onclick="return confirm('Apakah Anda Yakin Ingin Menghapus Data ?')">
                                                             DELETE
                                                         </a>
                                                     </div>
@@ -96,6 +98,7 @@
     </div>
 </div>
 
+    # code...
 
 <!-- Modal Tambah-->
 <div class="modal fade" id="modaluser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -146,6 +149,19 @@
                     </div>
 
                     <div class="mb-3">
+                    <label>Kategori</label>
+
+                    <select name="isi" id="isi" class="form-control" required>
+                        <option value="">-- Pilih Kategori --</option>
+                        <?php foreach ($kategori as $wis): ?>
+                        <option value="<?= $wis->id_kategori; ?>"><?= $wis->isi; ?></option>
+                        <?php endforeach; ?>
+
+                    </select>
+                    <?php echo form_error('kategori','<span class="text-small text-danger">','</span>') ?>
+                    </div>
+
+                    <div class="mb-3">
                     <label>Keterangan</label>
                     <input type="keterangan" name="keterangan" class="form-control" required>
                     <?php echo form_error('keterangan','<span class="text-small text-danger">','</span>') ?>
@@ -160,7 +176,6 @@
         </div>
     </div>
 </div>
-
 
 <?php $no = 0 ;
       foreach ($wisata as $cs) : $no++;
@@ -213,6 +228,22 @@
                         <?php echo form_error('maps','<span class="text-small text-danger">','</span>') ?>
 
                     </div>
+
+                    <div class="mb-3">
+                    <label>Kategori</label>
+
+                    <select name="isi" id="isi" class="form-control">
+                        <option value="">-- Pilih Level --</option>
+                        <?php foreach ($kategori as $kategoriItem): ?>
+                            <option value="<?= $kategoriItem->id_kategori; ?>" <?php echo ($cs->id_kategori == $kategoriItem->id_kategori) ? 'selected' : ''; ?>>
+                                <?= $kategoriItem->isi; ?>
+                            </option>
+                        <?php endforeach; ?>
+
+                    </select>
+                    <?php echo form_error('kategori','<span class="text-small text-danger">','</span>') ?>
+                </div>
+
                     <div class="mb-3">
                         <label>Keterangan</label>
                         <input type="keterangan" name="keterangan" class="form-control" value="<?php echo $cs->keterangan ?>" >

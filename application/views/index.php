@@ -45,6 +45,7 @@
   
 }
 
+
 .listing-image-front {
   width: 100%;
   height: 100%;
@@ -68,6 +69,51 @@
     transform: translateY(-50%); /* Untuk mengatur tombol ke tengah vertikal */
     z-index: 8888;
 }
+
+.rate {
+    float: left;
+    height: 50px;
+    padding: 0 10px;
+}
+
+.rate>input {
+    display: none;
+}
+
+.rate>label {
+    float: right;
+    width: 1em;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: default;
+    font-size: 30px;
+    color: #fff706; /* Warna kuning */
+}
+
+.rate>input:checked~label {
+    color: #fff706; /* Warna kuning */
+}
+
+.rate>label:hover,
+.rate>label:hover~label {
+    color: #deb217; /* Warna kuning terang */
+}
+
+.rate>input:checked+label:hover,
+.rate>input:checked+label:hover~label,
+.rate>input:checked~label:hover,
+.rate>input:checked~label:hover~label,
+.rate>label:hover~input:checked~label {
+    color: #fff706; /* Warna kuning gelap */
+}
+
+
+
+.post-entry-1 img {
+    width: 400px; /* Set your desired width */
+    height: 550px; /* Set your desired height */
+    object-fit: cover; /* This ensures the image covers the entire space while maintaining its aspect ratio */
+  }
 
     </style>
   <script>
@@ -180,8 +226,7 @@ setTimeout(function () {
                   <li class="active"><a href="<?= base_url('Landingpage/index')?>" class="nav-link">Home</a></li>
                   <li><a href="<?= base_url('guest/objek/index')?>" class="nav-link">Objek</a></li>
                   <li><a href="<?= base_url('guest/paket/index')?>" class="nav-link">Paket</a></li>
-                  <li><a href="blog.html" class="nav-link">News</a></li>
-                  <li><a href="contact.html" class="nav-link">Contact</a></li>
+                  <li><a href="http://localhost/newsgunaksa/news" target="_blank"class="nav-link">News</a></li>
                   <li><a href="<?= base_url('auth/login')  ?>" class="nav-link">Log In Admin</a></li>
                 </ul>
               </nav>
@@ -198,7 +243,7 @@ setTimeout(function () {
         <div class="container">
           <div class="row align-items-center">
             <div class="col-md-5" data-aos="fade-right">
-              <h1 class="mb-3 text-white">Let's Enjoy The Wonders of Nature</h1>
+              <h1 class="mb-3 text-primary">Let's Enjoy The Wonders of Nature</h1>
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta veritatis in tenetur doloremque, maiores doloribus officia iste. Dolores.</p>
               <p class="d-flex align-items-center">
                 <a href="https://www.youtube.com/watch?v=Zz62w4FyoGg" data-fancybox class="play-btn-39282 mr-3"><span class="icon-play"></span></a> 
@@ -247,27 +292,29 @@ setTimeout(function () {
           </div>
         </div>
         <div class="row">
+          <?php foreach ($objek as $ob ) :  ?>
           <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up">
             <div class="listing-item">
               <div class="listing-image">
                 <div class="listing-image-front">
-                <img src="<?= base_url('assets/') ?>images/wisata1.jpg" alt="Image" class="img-fluid">
+                <img src="<?= base_url('assets/upload/' . $ob->foto) ?>" alt="Image" class="img-fluid">
                 </div>
                    <div class="flip-card-back">
              
-                      <h4 class="title" style="text-align:center"><a href="https://maps.app.goo.gl/TnmTQ5nSviihatG99">Wisata Bukit Belong</a></h4>
-                      <iframe src="https://www.google.com/maps/d/embed?mid=15qfdcUxERVuHrzv4u_GgkqYAXL4albU&ll=-8.545010413516113%2C115.42765321441803&z=19" width="100%" height="400px"></iframe>
+                      <h4 class="title" style="text-align:center"><a href="<?= $ob->maps ?>"><?=$ob->nama_wisata?></a></h4>
+                      <iframe src="https://www.google.com/maps/d/embed?<?= $ob->link_maps ?>" width="100%" height="400px"></iframe>
          
                    </div>
               </div>
               <div class="listing-item-content">
-                <a class="px-3 mb-3 category bg-primary" target="_blank" href="https://maps.app.goo.gl/TnmTQ5nSviihatG99">Lihat Peta</a>
-                <h2 class="mb-1">Wisata Bukit Belong</h2>
+                <a class="px-3 mb-3 category bg-primary" target="_blank" href="<?= $ob->maps ?>">Lihat Peta</a>
+                <h2 class="mb-1"><?=$ob->nama_wisata?></h2>
               </div>
             </div>
           </div>
+          <?php endforeach; ?>
 
-          <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up">
+          <!-- <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up">
             <div class="listing-item">
               <div class="listing-image">
                 <img src="<?= base_url('assets/') ?>images/img_2.jpg" alt="Image" class="img-fluid">
@@ -277,133 +324,62 @@ setTimeout(function () {
                 <h2 class="mb-1"><a href="trip-single.html">Consectetur adipisicing</a></h2>
               </div>
             </div>
-          </div>
+          </div> -->
 
-          <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up">
-            <div class="listing-item">
-              <div class="listing-image">
-                <img src="<?= base_url('assets/') ?>images/img_3.jpg" alt="Image" class="img-fluid">
-              </div>
-              <div class="listing-item-content">
-                <a class="px-3 mb-3 category bg-primary" href="#">$180.00</a>
-                <h2 class="mb-1"><a href="trip-single.html">Temporibus aperiam</a></h2>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up">
-            <div class="listing-item">
-              <div class="listing-image">
-                <img src="<?= base_url('assets/') ?>images/img_4.jpg" alt="Image" class="img-fluid">
-              </div>
-              <div class="listing-item-content">
-                <a class="px-3 mb-3 category bg-primary" href="#">$600.00</a>
-                <h2 class="mb-1"><a href="trip-single.html">Expedita fugiat</a></h2>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up">
-            <div class="listing-item">
-              <div class="listing-image">
-                <img src="<?= base_url('assets/') ?>images/img_5.jpg" alt="Image" class="img-fluid">
-              </div>
-              <div class="listing-item-content">
-                <a class="px-3 mb-3 category bg-primary" href="#">$330.00</a>
-                <h2 class="mb-1"><a href="trip-single.html">Consectetur adipisicing</a></h2>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up">
-            <div class="listing-item">
-              <div class="listing-image">
-                <img src="<?= base_url('assets/') ?>images/img_6.jpg" alt="Image" class="img-fluid">
-              </div>
-              <div class="listing-item-content">
-                <a class="px-3 mb-3 category bg-primary" href="#">$450.00</a>
-                <h2 class="mb-1"><a href="trip-single.html">Consectetur Amet</a></h2>
-              </div>
-            </div>
-          </div>
 
         </div>
-
+            <div class="justify-content-center text-center" >
+              <a href="<?= base_url('guest/objek')  ?>" class="btn btn-primary">More Detail</a>
+            </div>
       </div>
+      
     </div>
-
+    
     <div class="site-section">
-
       <div class="container">
         <div class="row justify-content-center text-center">
-          <div class="col-md-10">
-            <div class="heading-39101 mb-5">
-              <span class="backdrop text-center">Our Team</span>
-              <span class="subtitle-39191">Amazing Staff</span>
-              <h3>Meet Our Team</h3>
+          <div class="col-md-10" data-aos="fade-up">
+            <div class="heading-39101 mb-5"><br>
+              <span class="backdrop text-center">Paket Wisata</span>
+              <span class="subtitle-39191">Paket Wisata</span>
+              <h3>Paket Yang Kami tawarkan</h3>
             </div>
           </div>
-        </div>
-
-
         <div class="row">
-
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="person-29191 text-center">
-              <img src="<?= base_url('assets/') ?>images/person_1.jpg" alt="Image" class="img-fluid mb-4">
-              <div class="px-4">
-                <h2 class="mb-2">John Doe</h2>
-                <p class="caption mb-4">Staff</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae, maiores? Eos alias fugit eius, repudiandae molestias error</p>
-                <div class="social_29128 mt-5">
-                <a href="#"><span class="icon-facebook"></span></a>  
-                <a href="#"><span class="icon-instagram"></span></a>  
-                <a href="#"><span class="icon-twitter"></span></a>  
-               </div>
-              </div>
-            </div>
-          </div>
-
+        <?php foreach ($paket as $cs) :  
           
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="person-29191 text-center">
-              <img src="<?= base_url('assets/') ?>images/person_2.jpeg" alt="Image" class="img-fluid mb-4" width="200">
-              <div class="px-4">
-                <h2 class="mb-2">Jenderal (Purn) Prof. Dr. IB Surya Ph.D</h2>
-                <p class="caption mb-4">President</p>
-                <p>President masa depan dengan gelar sepanjang mungkin dan bintang tanda jasa sebanyak mungkin</p>
-                <div class="social_29128 mt-5">
-                <a href="#"><span class="icon-facebook"></span></a>  
-                <a href="#"><span class="icon-instagram"></span></a>  
-                <a href="#"><span class="icon-twitter"></span></a>  
-               </div>
+          ?>
+
+          <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up">
+            <div class="post-entry-1 h-100">
+              <a href="single.html">
+
+                <img src=<?= base_url('assets/upload/'). $cs->foto ?> class="img-fluid">
+              </a>
+              <div class="post-entry-1-contents">
+                
+                <h2><a><?php echo $cs->nama_paket ?></a></h2>
+                <?php if($cs->diskon == null || $cs->diskon == 0) {?>
+                <span class="meta d-inline-block mb-3" style="color: black;">Price <span class="mx-2">:</span> <a style="color : #efba6c;"><?php echo $cs->harga ?></a></span>
+                <?php }else{  ?>
+                  <span class="meta d-inline-block mb-3" >Price <span class="mx-2">:</span> <a style="text-decoration: line-through; color: #efba6c;"><?php echo $cs->harga ?></a> <span style="color: red;" class="meta d-inline-block mb-3"><?php $potongan = (($cs->diskon / $cs->harga)* 100); echo intval($potongan);?>% OFF!!</span><br>
+                  <span style="color: black;" class="meta d-inline-block mb-3">Price<span class="mx-2">:</span> <a style="color: #efba6c;"><?php $harga = ($cs->harga-$cs->diskon);  echo $harga?></a></span>                  <?php } ?>
+
+
+                <!-- <p style="color: black;" class="keterangan"><?php echo $cs->keterangan ?></p> -->
               </div>
             </div>
+            
           </div>
-
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="person-29191 text-center">
-              <img src="<?= base_url('assets/') ?>images/person_3.jpg" alt="Image" class="img-fluid mb-4">
-              <div class="px-4">
-                <h2 class="mb-2">Claire Dormey</h2>
-                <p class="caption mb-4">Staff</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae, maiores? Eos alias fugit eius, repudiandae molestias error</p>
-                <div class="social_29128 mt-5">
-                <a href="#"><span class="icon-facebook"></span></a>  
-                <a href="#"><span class="icon-instagram"></span></a>  
-                <a href="#"><span class="icon-twitter"></span></a>  
-               </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
+        
+        <?php endforeach ?>
       </div>
+            <div class="justify-content-center text-center" >
+              <a href="<?= base_url('guest/paket')  ?>" class="btn btn-primary">More Detail</a>
+            </div>
+      </div>
+      
     </div>
-
-
-    
 
     <div class="site-section">
 
@@ -420,141 +396,57 @@ setTimeout(function () {
         </div>
 
         <div class="owl-carousel slide-one-item">
-          <div class="row">
-            <div class="col-md-6">
-
-              <div class="testimonial-39191 d-flex">
-                <div class="mr-4">
-                  <img src="<?= base_url('assets/') ?>images/person_1.jpg" alt="Image" class="img-fluid">
-                </div>
-                <div>
-                <blockquote>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, accusamus, facilis! Placeat praesentium alias porro aperiam facilis accusantium veniam?&rdquo;</blockquote>
-                <p>&mdash; John Doe</p>
-                </div>
-              </div>    
-              
-            </div>
-
-            <div class="col-md-6">
-
-              <div class="testimonial-39191 d-flex">
-                <div class="mr-4">
-                  <img src="<?= base_url('assets/') ?>images/person_2.jpg" alt="Image" class="img-fluid">
-                </div>
-                <div>
-                <blockquote>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, accusamus, facilis! Placeat praesentium alias porro aperiam facilis accusantium veniam?&rdquo;</blockquote>
-                <p>&mdash; John Doe</p>
-                </div>
-              </div>    
-              
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-6">
-
-              <div class="testimonial-39191 d-flex">
-                <div class="mr-4">
-                  <img src="<?= base_url('assets/') ?>images/person_1.jpg" alt="Image" class="img-fluid">
-                </div>
-                <div>
-                <blockquote>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, accusamus, facilis! Placeat praesentium alias porro aperiam facilis accusantium veniam?&rdquo;</blockquote>
-                <p>&mdash; John Doe</p>
-                </div>
-              </div>    
-              
-            </div>
-
-            <div class="col-md-6">
-
-              <div class="testimonial-39191 d-flex">
-                <div class="mr-4">
-                  <img src="<?= base_url('assets/') ?>images/person_2.jpg" alt="Image" class="img-fluid">
-                </div>
-                <div>
-                <blockquote>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, accusamus, facilis! Placeat praesentium alias porro aperiam facilis accusantium veniam?&rdquo;</blockquote>
-                <p>&mdash; John Doe</p>
-                </div>
-              </div>    
-              
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </div>
-
-
-    <div class="site-section">
-
-      <div class="container">
-        <div class="row justify-content-center text-center">
-          <div class="col-md-10">
-            <div class="heading-39101 mb-5">
-              <span class="backdrop text-center">Blog</span>
-              <span class="subtitle-39191">Updates</span>
-              <h3>Our Blog</h3>
-            </div>
-          </div>
-        </div>
-
+    <?php foreach ($review as $rev) : ?>
         <div class="row">
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="post-entry-1 h-100">
-              <a href="single.html">
-                <img src="<?= base_url('assets/') ?>images/img_1.jpg" alt="Image"
-                 class="img-fluid">
-              </a>
-              <div class="post-entry-1-contents">
-                
-                <h2><a href="single.html">Lorem ipsum dolor sit amet</a></h2>
-                <span class="meta d-inline-block mb-3">July 17, 2019 <span class="mx-2">by</span> <a href="#">Admin</a></span>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores eos soluta, dolore harum molestias consectetur.</p>
-              </div>
+            <div class="col-md-6">
+                <div class="testimonial-39191 d-flex">
+                    <div class="mr-4">
+                        <img src="<?= base_url('assets/') ?>images/logo.png" alt="Image" class="img-fluid" style="width: 100px;">
+                    </div>
+                    <div>
+                        <blockquote>&ldquo; <?= $rev->isi; ?> &rdquo;</blockquote>
+                        <p>&mdash; <?= $rev->nama ?></p> <br>
+                        <div class="rate">
+                            <label for="star5_comment_<?= $rev->idtb_review ?>" title="text">5 stars</label>
+                            <input type="radio" name="rate_<?= $rev->idtb_review ?>" value="4" <?php if ($rev->rating == 4) echo 'checked' ?> disabled />
+                            <label for="star4_comment_<?= $rev->idtb_review ?>" title="text">4 stars</label>
+                            <input type="radio" name="rate_<?= $rev->idtb_review ?>" value="3" <?php if ($rev->rating == 3) echo 'checked' ?> disabled />
+                            <label for="star3_comment_<?= $rev->idtb_review ?>" title="text">3 stars</label>
+                            <input type="radio" name="rate_<?= $rev->idtb_review ?>" value="2" <?php if ($rev->rating == 2) echo 'checked' ?> disabled />
+                            <label for="star2_comment_<?= $rev->idtb_review ?>" title="text">2 stars</label>
+                            <input type="radio" name="rate_<?= $rev->idtb_review ?>" value="1" <?php if ($rev->rating == 1) echo 'checked' ?> disabled />
+                            <label for="star1_comment_<?= $rev->idtb_review ?>" title="text">1 star</label>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="post-entry-1 h-100">
-              <a href="single.html">
-                <img src="<?= base_url('assets/') ?>images/img_2.jpg" alt="Image"
-                 class="img-fluid">
-              </a>
-              <div class="post-entry-1-contents">
-                
-                <h2><a href="single.html">Lorem ipsum dolor sit amet</a></h2>
-                <span class="meta d-inline-block mb-3">July 17, 2019 <span class="mx-2">by</span> <a href="#">Admin</a></span>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores eos soluta, dolore harum molestias consectetur.</p>
-              </div>
-            </div>
+        </div>
+    <?php endforeach; ?>
+</div>
+
+
+
+
+            
+
           </div>
 
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="post-entry-1 h-100">
-              <a href="single.html">
-                <img src="<?= base_url('assets/') ?>images/img_3.jpg" alt="Image"
-                 class="img-fluid">
-              </a>
-              <div class="post-entry-1-contents">
-                
-                <h2><a href="single.html">Lorem ipsum dolor sit amet</a></h2>
-                <span class="meta d-inline-block mb-3">July 17, 2019 <span class="mx-2">by</span> <a href="#">Admin</a></span>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores eos soluta, dolore harum molestias consectetur.</p>
-              </div>
-            </div>
-          </div>
         </div>
+
       </div>
     </div>
+
+
+    
     
 
     <div class="site-section bg-image overlay" style="background-image: url('<?= base_url('assets/') ?>images/hero_1.jpg')">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-md-7 text-center">
-            <h2 class="font-weight-bold text-white">Join and Trip With Us</h2>
-            <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus ut, doloremque quo molestiae nesciunt officiis veniam, beatae dignissimos!</p>
-            <p class="mb-0"><a href="#" class="btn btn-primary text-white py-3 px-4">Get In Touch</a></p>
+            <h2 class="font-weight-bold text-white">Join and Trip With Us And View Our Tourism News</h2> <br>
+            <!-- <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus ut, doloremque quo molestiae nesciunt officiis veniam, beatae dignissimos!</p> -->
+            <p class="mb-0"><a href="http://localhost/newsgunaksa/news" class="btn btn-primary text-white py-3 px-4">Our Tourism News</a></p>
           </div>
         </div>
       </div>

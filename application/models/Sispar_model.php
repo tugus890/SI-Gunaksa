@@ -33,6 +33,75 @@ class Sispar_model extends CI_Model
 		return $this->db->get($table, $limit, $offset);
 	}
 
+	//get data objek wisata
+	public function get_objek_wisata($table)
+      {
+		$this->db->select('tb_objek_wisata.*, kategori.isi');
+        $this->db->from('tb_objek_wisata');
+        $this->db->join('kategori', 'kategori.id_kategori = tb_objek_wisata.id_kategori', 'inner');
+        
+        $query = $this->db->get();
+        return $query->result();
+     }
+
+	 //ini untuk get data obej wisata di landing page
+	 public function get_objek_wisata_lp($table, $limit)
+	 {
+		 $this->db->select('tb_objek_wisata.*, kategori.isi');
+		 $this->db->from('tb_objek_wisata');
+		 $this->db->join('kategori', 'kategori.id_kategori = tb_objek_wisata.id_kategori', 'inner');
+		 $this->db->limit($limit); // Menambahkan batasan data
+	 
+		 $query = $this->db->get();
+		 return $query->result();
+	 }
+	 
+
+
+	//insert data objek wisata
+	function insert_data_objek_wisata($data) {
+		$this->db->set($data);
+
+		$this->db->from('tb_objek_wisata');
+		$this->db->join('tb_user', 'tb_objek_wisata.id_user = tb_user.id_user', 'inner');
+
+		$insert = $this->db->insert('tb_objek_wisata', $data);
+		
+		return $insert;
+	}
+
+	//update data objek wisata
+	function update_data_objek_wisata($data,$where) {
+		$this->db->set($data);
+
+		$this->db->from('tb_objek_wisata');
+		$this->db->where($where); 
+		$update = $this->db->update('tb_objek_wisata', $data);
+		
+		return $update;
+	}
+
+	function cari_objek($id_kategori) {
+		$this->db->select('*');
+		$this->db->from('tb_objek_wisata');
+		$this->db->join('kategori', 'tb_objek_wisata.id_kategori = kategori.id_kategori', 'inner');
+		
+		$this->db->where('kategori.id_kategori', $id_kategori);
+		
+		$query = $this->db->get();
+
+		return $query->result();
+	}
+
+	function cari_objek_all($id_kategori) {
+		$this->db->select('tb_objek_wisata.*','isi');
+		$this->db->from('tb_objek_wisata');
+		$this->db->join('kategori', 'tb_objek_wisata.id_kategori = kategori.id_kategori', 'inner');		
+		$query = $this->db->get();
+
+		return $query->result();
+	}
+
 
 	public function insert_data_sewa($data_penyewaan)
 	{
@@ -85,20 +154,18 @@ class Sispar_model extends CI_Model
 		return $approved;
 	}
 
-	public function approved_model_transaksi($data, $where)
+	public function approved_model_transaksi( $data, $where)
 	{
 		$this->db->set($data);
-		$this->db->from('tb_transaksi t');
-		$this->db->join('tb_penyewaan pw', 't.id_sewa = pw.id_sewa', 'inner');
-		$this->db->join('tb_produk p', 'pw.id_produk = p.id_produk', 'inner');
-		$this->db->join('tb_client c', 't.id_client = c.id_client', 'inner');
-		$this->db->join('tb_sewa s', 'pw.id_sewa = s.id_sewa', 'inner');
 
+        // Kondisi WHERE
+		$this->db->where($where);  // $where sudah berupa array
 
-		$this->db->where($where);
+        // Lakukan update
+        $this->db->update('tb_review', $data);
 
-		$approved = $this->db->update('tb_transaksi');
-		return $approved;
+        // Mengembalikan status update
+        return $this->db->affected_rows() > 0;
 	}
 
 	public function getProdukStats()
@@ -185,9 +252,26 @@ class Sispar_model extends CI_Model
 		if ($result->num_rows() > 0) {
 			return $result->row();
 		} else {
+			$this->session->unset_userdata('access_token');
+			$this->session->unset_userdata('user_data');
 			return FALSE;
 		}
 	}
+	public function cek_login_admin($email)
+{
+    $result = $this->db
+        ->where('email', $email)
+        // ->where('role', 1)
+        ->limit(1)
+        ->get('tb_user');
+
+    if ($result->num_rows() > 0) {
+        return $result->row();
+    } else {
+        return FALSE;
+    }
+}
+
 
 
 	public function get_password($id_user)
@@ -251,19 +335,37 @@ class Sispar_model extends CI_Model
 
 		return $data;
 	}
+	public function email_ada($email) {
+        $this->db->where('email', $email);
+        $query = $this->db->get('tb_user');
+
+        return $query->num_rows() > 0;
+    }
+
+	public function get_email($email) {
+        $this->db->select('nama');
+        $this->db->from('tb_user');
+        $this->db->where('email', $email);
+
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) {
+            return $query->row()->nama;
+        } else {
+            return null; // atau nilai default sesuai kebutuhan Anda
+        }
+    }
 
 	public function pimpinan_login()
 	{
 		if (!empty($this->session->userdata('role'))) {
-			if ($this->session->userdata('role') == '3') {
+			if ($this->session->userdata('role') == '2') {
 				return;
-			} elseif ($this->session->userdata('role') == '2') {
-				redirect('customer/dashboard');
-			} else {
+			}else {
 				redirect('admin/dashboard');
 			}
 		} else {
-			redirect('Lpage/index');
+			redirect('Landingpage/index');
 		}
 	}
 
@@ -276,7 +378,50 @@ class Sispar_model extends CI_Model
 				redirect('customer/dashboard');
 			}
 		} else {
-			redirect('LPage/index');
+			$this->session->unset_userdata('access_token');
+			$this->session->unset_userdata('user_data');
+			redirect('Landingpage');
+		}
+	}
+
+	public function admin_login_google()
+	{
+		if (!empty($this->session->userdata('role'))) {
+			if ($this->session->userdata('role') == '1') {
+				return;
+			} elseif ($this->session->userdata('role') == '2') {
+				redirect('pimpinan/dashboard');
+			}
+		} else {
+			$this->session->unset_userdata('access_token');
+			$this->session->unset_userdata('user_data');
+			$this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+			Anda tidak memiliki izin untuk mengakses halaman ini!
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>');
+			redirect('auth/login');
+		}
+	}
+	public function pimpinan_login_google()
+	{
+		if (!empty($this->session->userdata('role'))) {
+			if ($this->session->userdata('role') == '2') {
+				return;
+			} elseif ($this->session->userdata('role') == '1') {
+				redirect('admin/dashboard');
+			}
+		} else {
+			$this->session->unset_userdata('access_token');
+			$this->session->unset_userdata('user_data');
+			$this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+			Anda tidak memiliki izin untuk mengakses halaman ini!
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>');
+			redirect('auth/login');
 		}
 	}
 

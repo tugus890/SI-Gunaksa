@@ -6,7 +6,8 @@
 		public function index(){
 			$this->sispar_model->admin_login();
 			//mengeluarkan semua data tugus
-			$data['wisata'] = $this->sispar_model->get_data('tb_objek_wisata')->result();
+			$data['wisata'] = $this->sispar_model->get_objek_wisata('tb_objek_wisata');
+			$data['kategori'] = $this->sispar_model->get_data('kategori')->result();
 
 			//pagination tugus :)
 			// $config['base_url'] = base_url('admin/data_user/index'); // Perbaiki base_url
@@ -44,6 +45,7 @@
 				$link_maps = $this->input->post('link_maps');
 				$maps = $this->input->post('maps');
 				$keterangan = $this->input->post('keterangan');
+				$id_kategori = $this->input->post('isi');
 				$foto = $_FILES['foto']['name'];
 
 		
@@ -55,23 +57,32 @@
 				$this->load->library('upload', $config);
 		
 				if (!$this->upload->do_upload('foto')) {
-					$error = $this->upload->display_errors();
-					echo "Foto Wisata gagal diunggah! Error: " . $error;
+					// $error = $this->upload->display_errors();
+					// echo "Foto Wisata gagal diunggah! Error: " . $error;
+					$this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							File upload failed
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>');
 				} else {
 					$foto = $this->upload->data('file_name');
+					$id_user = $this->session->userdata('id_user');
 					$data = array(
 						'nama_wisata' => $nama_wisata,
 						'link_maps' => $link_maps,
 						'maps' => $maps,
 						'foto' => $foto,
 						'keterangan' => $keterangan,
+						'id_kategori' => $id_kategori,
+						'id_user' => $id_user,
 
 					);
 		
-					$this->sispar_model->insert_data($data, 'tb_objek_wisata');
+					$this->sispar_model->insert_data_objek_wisata($data);
 		
 					$this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">
-						Data Tempat Wisata Berhasil Ditambah
+						Data Objek Wisata Berhasil Ditambah
 						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
@@ -113,6 +124,7 @@
         $nama_wisata = $this->input->post('nama_wisata');
         $link_maps = $this->input->post('link_maps');
         $maps = $this->input->post('maps');
+        $id_kategori = $this->input->post('isi');
         $keterangan = $this->input->post('keterangan');
         $foto = $_FILES['foto']['name'];
 
@@ -124,7 +136,7 @@
 
         if (!empty($foto)) {
             if (!$this->upload->do_upload('foto')) {
-                echo "Foto produk pertama gagal diunggah!";
+                echo "Foto gagal diunggah!";
             } else {
                 $foto = $this->upload->data('file_name');
 				$this->db->set('foto', $foto);
@@ -141,6 +153,7 @@
             'link_maps' => $link_maps,
             'maps' => $maps,
             'keterangan' => $keterangan,
+			'id_kategori' => $id_kategori,
             
         );
 
@@ -152,10 +165,10 @@
         
 
         $where = array(
-            'id_objek_wisata' => $this->input->post('id_objek_wisata')
+            'id_objek_wisata' => $id_objek_wisata
         );
 
-        $this->sispar_model->update_data('tb_objek_wisata', $data, $where);
+        $this->sispar_model->update_data_objek_wisata($data, $where);
 
         $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">
             Data Wisata Berhasil Diupdate
@@ -174,7 +187,7 @@
 			$this->sispar_model->delete_data($where, 'tb_objek_wisata');
 
 			$this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-            Data User Berhasil Dihapus
+            Data wisata Berhasil Dihapus
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>

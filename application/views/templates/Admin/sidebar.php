@@ -33,7 +33,7 @@
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item <?php echo (strpos(current_url(), "admin/data_user")||strpos(current_url(), "admin/data_produk") !== false) ? "active" : "" ?>">
+            <li class="nav-item <?php echo (strpos(current_url(), "admin/data_user")||strpos(current_url(), "admin/data_review") !== false) ? "active" : "" ?>">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-user"></i>
@@ -43,7 +43,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Data:</h6>
                         <a class="collapse-item" href="<?= base_url('admin/data_user') ?>">Data User</a>
-                        <a class="collapse-item" href="<?= base_url('admin/data_produk') ?>">Data Produk</a>
+                        <a class="collapse-item" href="<?= base_url('admin/data_review') ?>">Data Review</a>
                     </div>
                 </div>
             </li>
@@ -61,7 +61,8 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">List Wisata:</h6>
-                        <a class="collapse-item" href="<?= base_url('admin/tempatwisata') ?>">List Tempat Wisata</a>
+                        <a class="collapse-item" href="<?= base_url('admin/tempatwisata') ?>">List Objek Wisata</a>
+                        <a class="collapse-item" href="<?= base_url('admin/data_kontak') ?>">Manajemen Data Kontak</a>
                         <a class="collapse-item" href="<?= base_url('admin/paket_wisata') ?>">List Paket Wisata</a>
                         
                     </div>
@@ -77,7 +78,7 @@
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item <?php echo (strpos(current_url(), "admin/data_faq")||strpos(current_url(), "admin/pendapatan") !== false) ? "active" : "" ?>">
+            <li class="nav-item <?php echo (strpos(current_url(), "admin/news") !== false) ? "active" : "" ?>">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                     aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-comments"></i>
@@ -86,12 +87,31 @@
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">List News</h6>
-                        <a class="collapse-item" href="<?= base_url('admin/data_faq') ?>">Data FAQ</a>
-                        <a class="collapse-item" href="<?= base_url('admin/pendapatan') ?>">Pendapatan</a>
+                        <a class="collapse-item" href="http://localhost/newsgunaksa/news/admin/dashboard">News</a>
                        
                     </div>
                 </div>
             </li>
+
+            
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+               HOME
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item <?php echo (strpos(current_url(), "Landingpage") !== false) ? "active" : "" ?>">
+                <a class="nav-link collapsed" href="<?=base_url()?>" "
+                    aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+               
+            </li>
+
 
            
             <!-- Divider -->
@@ -287,7 +307,7 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $this->session->userdata('nama') ?></span>
                                 <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
+                                src="<?= base_url('assets/upload/') . $this->session->userdata('foto') ?>"
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
